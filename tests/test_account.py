@@ -31,6 +31,7 @@ class TestAccountModel(TestCase):
 
     def tearDown(self):
         """Remove the session"""
+        db.session.remove()
 
     ######################################################################
     #  T E S T   C A S E S
@@ -40,3 +41,10 @@ class TestAccountModel(TestCase):
         account = Account(**ACCOUNT_DATA[0])
         account.create()
         self.assertEqual(len(Account.all()), 1)
+
+    def test_create_all_account(self):
+        """test creating all accounts"""
+        for data in ACCOUNT_DATA:
+            account = Account(**data)
+            account.create()
+        self.assertEqual(len(Account.all()), len(ACCOUNT_DATA))
